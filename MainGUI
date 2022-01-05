@@ -1,1 +1,10 @@
+# Mithilan Sriharan
+# Saad Habib
+# Card Game Assignment
+# ICS20-02
+# BlackJack
+import tkinter as tk
 
+# Customize main window
+root = tk.Tk()
+root.title('')
