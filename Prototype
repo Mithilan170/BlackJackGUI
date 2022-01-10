@@ -1,0 +1,31 @@
+# Mithilan Sriharan
+# Saad Habib
+# Card Game Assignment
+# ICS20-02
+# BlackJack
+
+# Import the required modules
+import random
+
+# Print welcome message
+print('Welcome To Blackjack!')
+
+# State the rules for the game
+print('This is blackjack. Rules are simple whoever has the biggest sum of the cards at the end wins. Unless someone gets 21 / blackjack or goes over 21 (bust). Bust is when a player goes over 21 and the lose. Once it is your turn you can choose to hit or stand, if you hit you get another card, if you stand it becomes the other persons turn. Your goal is to get the closest number to 21 without going over it. The game uses standard card values.')
+
+# Randomize and deal the cards
+cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Ace', 'Jack', 'King', 'Queen']
+dealplayercard1 = random.choice(cards)
+dealplayercard2 = random.choice(cards)
+
+dealaicards1 = random.choice(cards)
+dealaicards2 = random.choice(cards)
+
+# Tell player both players and computers cards
+print('The dealers cards are:', dealaicards1, dealaicards2)
+print('Your cards are:', dealplayercard1, dealplayercard2)
+
+# Ask user to hit or stand
+userchoice = (input(str('What do you do? (hit or stand): ')))
+
+# Execute users command
