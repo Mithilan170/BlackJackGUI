@@ -2,7 +2,7 @@
 # Saad Habib
 # Card Game Assignment
 # ICS20-02
-# BlackJack
+# BlackJack Non-GUI
 
 # Import the required modules
 import random
@@ -11,21 +11,78 @@ import random
 print('Welcome To Blackjack!')
 
 # State the rules for the game
-print('This is blackjack. Rules are simple whoever has the biggest sum of the cards at the end wins. Unless someone gets 21 / blackjack or goes over 21 (bust). Bust is when a player goes over 21 and the lose. Once it is your turn you can choose to hit or stand, if you hit you get another card, if you stand it becomes the other persons turn. Your goal is to get the closest number to 21 without going over it. The game uses standard card values.')
+print('This is blackjack. Rules are simple whoever has the biggest sum of the cards at the end wins. Unless someone gets 21 / blackjack or goes over 21 (bust). Bust is when a player goes over 21 and the lose. Once it is your turn you can choose to hit or stand, if you hit you get another card, if you stand it becomes the other persons turn. Your goal is to get the closest number to 21 without going over it. The game uses no suit cards. The values of the face cards are a Jack = 10, Queen = 10, King = 10, Ace = 11 or 1 whatever works the best. ')
 
-# Randomize and deal the cards
-cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Ace', 'Jack', 'King', 'Queen']
-dealplayercard1 = random.choice(cards)
-dealplayercard2 = random.choice(cards)
+# Global Variables
+deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A', 'J', 'Q', 'K', 'A', 'J', 'Q', 'K', 'A' 'J', 'Q', 'K', 'A']
+dealer_cards = []
+player_cards = []
 
-dealaicards1 = random.choice(cards)
-dealaicards2 = random.choice(cards)
+print('Dealing...')
 
-# Tell player both players and computers cards
-print('The dealers cards are:', dealaicards1, dealaicards2)
-print('Your cards are:', dealplayercard1, dealplayercard2)
+# Create the dealcard function to deal a card when needed
+def dealcard(turn):
+    card = random.choice(deck)
+    turn.append(card)
+    deck.remove(card) # Removes the card out of the deck so it cant repeat.
 
-# Ask user to hit or stand
-userchoice = (input(str('What do you do? (hit or stand): ')))
+# Create the function to calculate the total cards that each player has
+def totalvalue(turn):
+    totalvalue = 0
+    facecards = ['J', 'Q', 'K']
+    for card in turn:
+        if card in range(1, 11):
+            totalvalue += card  # This adds the cards together
+        elif card in facecards: # Checks if a card is a face card (J, Q, K,)
+            totalvalue += 10    # This gives value to face cards
+        else: # This checks if they get an ace and what works the best in case when they get an ace
+            if totalvalue > 11: # If total is over 11 Ace counts as 1
+                totalvalue += 1
+            else:               # If total is under 11 Ace counts as 11
+                totalvalue += 11
+    return totalvalue
 
-# Execute users command
+for dealing in range(2):
+    dealcard(dealer_cards)
+    dealcard(player_cards)
+
+print(f"The dealer's cards are {dealer_cards} and the total amount is {totalvalue(dealer_cards)}")
+print(f"Your cards are {player_cards} and your total amount is {totalvalue(player_cards)}")
+
+while True:
+    print(f"You now have a total of {totalvalue(player_cards)} with these cards {player_cards}")
+    playerchoice = (input('Would you like to do \n1.Hit \nor \n2.Stand\n'))
+    if playerchoice == '2':
+        break
+    dealcard(player_cards)
+    
+      
+# If they chose to stand move on to dealers / computers turn
+print("What will the dealer do?...")
+    
+# Create game logic
+
+if totalvalue(dealer_cards) >= 18:
+    print(f"The dealer chose to stand their cards are {dealer_cards} with a total of {totalvalue(dealer_cards)}")
+if totalvalue(dealer_cards) < 16:
+    dealcard(dealer_cards)
+    print(f"The dealer chose to hit their new cards are {dealer_cards} and their total is {totalvalue(dealer_cards)}")
+if totalvalue(dealer_cards) == totalvalue(player_cards):
+    print(f"Its a tie you both have {totalvalue(player_cards)}")
+if totalvalue(dealer_cards) == 21:
+    print(f"The dealer got blackjack! You lose...")
+if totalvalue(player_cards) > 21:
+    print(f"You busted Dealer wins... Dealer had {totalvalue(dealer_cards)}")
+if totalvalue(dealer_cards) > 21:
+    print(f"Dealer busted... You won and you had {totalvalue(player_cards)}")
+if totalvalue(dealer_cards) > totalvalue(player_cards) < 21:
+    if totalvalue(dealer_cards) < 21:
+        print(f"Dealer wins they had a {totalvalue(dealer_cards)} and you had {totalvalue(player_cards)}")
+if totalvalue(player_cards) > totalvalue(dealer_cards):
+    if totalvalue(player_cards) < 21:
+        print(f"You won, you had {totalvalue(player_cards)} and the dealer had {totalvalue(dealer_cards)}")
+if totalvalue(dealer_cards) > 21:
+    if totalvalue(player_cards) > 21:
+        print(f"Both of you busted... no one wins its a tie")
+
+print(f"Your cards were {player_cards} with a total of {totalvalue(player_cards)} \nthe dealers cards were {dealer_cards} and their total was {totalvalue(dealer_cards)}")
