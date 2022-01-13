@@ -78,11 +78,15 @@ if totalvalue(dealer_cards) > 21:
 if totalvalue(dealer_cards) > totalvalue(player_cards) < 21:
     if totalvalue(dealer_cards) < 21:
         print(f"Dealer wins they had a {totalvalue(dealer_cards)} and you had {totalvalue(player_cards)}")
+if totalvalue(player_cards) == 21:
+    print(f"BlackJack!!!! You won.")
 if totalvalue(player_cards) > totalvalue(dealer_cards):
     if totalvalue(player_cards) < 21:
         print(f"You won, you had {totalvalue(player_cards)} and the dealer had {totalvalue(dealer_cards)}")
 if totalvalue(dealer_cards) > 21:
     if totalvalue(player_cards) > 21:
         print(f"Both of you busted... no one wins its a tie")
-
+# Print players and dealers card so user can see
 print(f"Your cards were {player_cards} with a total of {totalvalue(player_cards)} \nthe dealers cards were {dealer_cards} and their total was {totalvalue(dealer_cards)}")
+
+# Ask User if they want to play again
